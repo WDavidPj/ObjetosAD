@@ -6,6 +6,8 @@
 
 package interfaz;
 import clases.Persona;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 /**
  *
  * @author wpadilla4
@@ -15,8 +17,7 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    Persona v [] = new Persona [5];
-    int cont = 0;
+    ArrayList<Persona> v = new ArrayList();
     public Principal() {
         initComponents();
     }
@@ -39,10 +40,14 @@ public class Principal extends javax.swing.JFrame {
         txtPrimerApellido = new javax.swing.JTextField();
         txtPrimerNombre = new javax.swing.JTextField();
         txtIdentificacion = new javax.swing.JTextField();
+        cmbSexo = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         txtGuardar = new javax.swing.JButton();
         cmdMostrar = new javax.swing.JButton();
         cmdBorrar = new javax.swing.JButton();
+        cmdMujeres = new javax.swing.JButton();
+        cmdCantidadDeMujeres = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtResultado = new javax.swing.JTextArea();
@@ -70,7 +75,13 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.add(txtPrimerNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 110, -1));
         jPanel2.add(txtIdentificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 110, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 240, 130));
+        cmbSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hombre", "Mujer ", "Indefinido" }));
+        jPanel2.add(cmbSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, -1, -1));
+
+        jLabel5.setText("Sexo");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 240, 160));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -81,15 +92,41 @@ public class Principal extends javax.swing.JFrame {
                 txtGuardarActionPerformed(evt);
             }
         });
-        jPanel3.add(txtGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        jPanel3.add(txtGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 100, -1));
 
         cmdMostrar.setText("Mostrar");
-        jPanel3.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 70, -1));
+        cmdMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMostrarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 100, -1));
 
         cmdBorrar.setText("Borrar");
-        jPanel3.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 70, -1));
+        cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBorrarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 100, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 110, 130));
+        cmdMujeres.setText("Listar Mujeres");
+        cmdMujeres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMujeresActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cmdMujeres, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
+        cmdCantidadDeMujeres.setText("Cantidad de Mujeres");
+        cmdCantidadDeMujeres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCantidadDeMujeresActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cmdCantidadDeMujeres, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 100, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 140, 180));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultado"));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -98,42 +135,112 @@ public class Principal extends javax.swing.JFrame {
         txtResultado.setRows(5);
         jScrollPane1.setViewportView(txtResultado);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 360, 170));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 360, 170));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 380, 210));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 380, 210));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setSize(new java.awt.Dimension(440, 483));
+        setSize(new java.awt.Dimension(454, 483));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGuardarActionPerformed
         Persona P;
         long identificacion;
-        String primer_nombre,primer_apellido;
+        String primer_nombre,primer_apellido,sexo;
+        
         
         identificacion = Long.parseLong(txtIdentificacion.getText());
         primer_nombre = txtPrimerApellido.getText();
         primer_apellido = txtPrimerNombre.getText();
-        
+        sexo = cmbSexo.getSelectedItem().toString();
         P = new Persona (identificacion , primer_nombre , primer_apellido);
-        v[cont]=P;
-        cont++;
+        v.add(P);
+        
+        JOptionPane.showMessageDialog(this,"Persona Agregada Exitosamente");
+        txtIdentificacion.setText("");
+        txtPrimerNombre.setText("");
+        txtPrimerApellido.setText("");
+      
+        txtIdentificacion.requestFocusInWindow();
         
         
         
         
     }//GEN-LAST:event_txtGuardarActionPerformed
+
+    private void cmdMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMostrarActionPerformed
+       String aux;
+       int cont = 0;
+       txtResultado.setText("");
+       
+       if(v.isEmpty()){
+           txtResultado.setText("No hay personas que mostrar");
+       }else{
+           
+           
+              
+        for (int i = 0; i < v.size(); i++) {
+            if (v.get(i).getSexo().equalsIgnoreCase("Mujer")){
+            aux= "Persona No."+(i+1)+"\n"
+                    +"Identificacion "+v.get(i).getIdentificacion()+"\n"
+                    +"Primer Nombre "+v.get(i).getPrimer_nombre()+"\n"
+                    +"Primer Apellido"+v.get(i).getPrimer_apellido()+"\n\n";
+                    
+            
+            txtResultado.append(aux);
+            cont++;
+            
+            }
+        }
+        if (cont == 0){
+            txtResultado.setText("No hay mujeres que mostrar");
+        }
+       
+       }
+        txtIdentificacion.requestFocusInWindow();
+    }//GEN-LAST:event_cmdMostrarActionPerformed
+
+    private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
+        int op =0;
+       op = JOptionPane.showConfirmDialog(this,"Seguro que desea Salir","Salir",JOptionPane.YES_NO_OPTION);
+       if( op == JOptionPane.YES_OPTION){
+           v.clear();
+           txtIdentificacion.setText("");
+           txtPrimerNombre.setText("");
+           txtPrimerApellido.setText("");
+           txtIdentificacion.requestFocusInWindow();
+       }
+       
+    }//GEN-LAST:event_cmdBorrarActionPerformed
+
+    private void cmdCantidadDeMujeresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCantidadDeMujeresActionPerformed
+        int cont = 0;
+        String res;
+        
+        for (int i = 0; i < v.size(); i++) {
+            if(v.get(i).getSexo().equalsIgnoreCase("Mujer")){
+                cont ++;
+            }
+        }
+        res = String.valueOf(cont);
+        txtResultado.setText(res);
+        
+    }//GEN-LAST:event_cmdCantidadDeMujeresActionPerformed
+
+    private void cmdMujeresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMujeresActionPerformed
+        
+    }//GEN-LAST:event_cmdMujeresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,12 +278,16 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbSexo;
     private javax.swing.JButton cmdBorrar;
+    private javax.swing.JButton cmdCantidadDeMujeres;
     private javax.swing.JButton cmdMostrar;
+    private javax.swing.JButton cmdMujeres;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
